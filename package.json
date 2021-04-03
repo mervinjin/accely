@@ -5,6 +5,10 @@
   "workspaces": [
     "packages/**/*"
   ],
+  "scripts": {
+    "client": "yarn workspace client",
+    "server": "yarn workspace server"
+  },
   "devDependencies": {
     "eslint": "^7.23.0",
     "prettier": "^2.2.1",
