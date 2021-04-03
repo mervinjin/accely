@@ -105,6 +105,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sveltejs/adapter-vercel@npm:next":
+  version: 1.0.0-next.10
+  resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.10"
+  checksum: 437712d211bf9dabb29acf3d04b91781fb6d9bde74027ae02efc1f7d0b4b386654b8e95d11a6b9b5c9bd1a912c9993c772e77dc5fde9fcaef9cf10c09fad8389
+  languageName: node
+  linkType: hard
+
 "@sveltejs/kit@npm:next":
   version: 1.0.0-next.70
   resolution: "@sveltejs/kit@npm:1.0.0-next.70"
@@ -603,6 +610,7 @@ __metadata:
   resolution: "client@workspace:packages/client"
   dependencies:
     "@sveltejs/adapter-node": next
+    "@sveltejs/adapter-vercel": next
     "@sveltejs/kit": next
     "@typescript-eslint/eslint-plugin": ^4.19.0
     "@typescript-eslint/parser": ^4.19.0
