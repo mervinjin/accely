@@ -1,0 +1,150 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// 用户
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  updateAt DateTime @updatedAt
+
+  accounts  Account[]
+  bills     Bill[]
+  SpaceUser SpaceUser[]
+}
+
+enum AccountType {
+  Payment
+  Credit
+  Assets
+}
+
+/// 账户
+model Account {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  currencyId Int
+  name       String
+  balance    Float
+  type       AccountType
+  updateAt   DateTime    @updatedAt
+
+  currency           Currency      @relation(fields: [currencyId], references: [id])
+  user               User          @relation(fields: [userId], references: [id])
+  transactions       Transaction[]
+  sendingTransfers   Transfer[]    @relation("TransferSendingRelation")
+  receivingTransfers Transfer[]    @relation("TransferReceingRelation")
+  Debt               Debt[]
+}
+
+model Currency {
+  id       Int      @id @default(autoincrement())
+  name     String
+  code     String
+  updateAt DateTime @updatedAt
+
+  Account Account[]
+}
+
+model Space {
+  id       Int      @id @default(autoincrement())
+  name     String
+  updateAt DateTime @updatedAt
+
+  categorys Category[]
+  SpaceUser SpaceUser[]
+}
+
+model SpaceUser {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  spaceId  Int
+  updateAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  space Space @relation(fields: [spaceId], references: [id])
+}
+
+model Category {
+  id       Int      @id @default(autoincrement())
+  spaceId  Int
+  updateAt DateTime @updatedAt
+
+  space        Space         @relation(fields: [spaceId], references: [id])
+  transactions Transaction[]
+}
+
+enum BillType {
+  /// 支出
+  Payment
+  /// 收入
+  Income
+  /// 转账
+  Transfer
+  /// 债务
+  Debt
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  accountId  Int
+  categoryId Int
+  billId     Int
+  amount     Int
+  updateAt   DateTime @updatedAt
+
+  account  Account  @relation(fields: [accountId], references: [id])
+  bill     Bill     @relation(fields: [billId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+}
+
+model Transfer {
+  id                 Int      @id @default(autoincrement())
+  billId             Int
+  amount             Int
+  sendingAccountId   Int
+  receivingAccountId Int
+  updateAt           DateTime @updatedAt
+
+  bill             Bill    @relation(fields: [billId], references: [id])
+  sendingAccount   Account @relation(name: "TransferSendingRelation", fields: [sendingAccountId], references: [id])
+  receivingAccount Account @relation(name: "TransferReceingRelation", fields: [receivingAccountId], references: [id])
+}
+
+enum DebtType {
+  /// 借入
+  Loan
+  /// 偿还
+  Repay
+}
+
+model Debt {
+  id        Int      @id @default(autoincrement())
+  billId    Int
+  accountId Int
+  amount    Float
+  type      DebtType
+  updateAt  DateTime @updatedAt
+
+  account Account @relation(fields: [accountId], references: [id])
+  bill    Bill    @relation(fields: [billId], references: [id])
+}
+
+model Bill {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  type     BillType
+  updateAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+  transfers    Transfer[]
+  debts        Debt[]
+}
