@@ -10,7 +10,7 @@
     "server": "yarn workspace server",
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
-    "postinstall": "yarn workspace server prisma generate"
+    "prepare": "yarn workspace server prisma generate"
   },
   "devDependencies": {
     "eslint": "^7.23.0",
