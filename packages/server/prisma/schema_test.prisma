@@ -1,0 +1,130 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("TEST_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
+/// 用户
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  /// 账户信息
+  accounts    Account[]
+  /// 空间信息
+  spaces      Space[]
+  /// 交易信息
+  transaction Transaction[]
+}
+
+/// 账户类型
+enum AccountType {
+  /// 支付账户
+  Payment
+  /// 信用账户
+  Credit
+  /// 资产
+  Assets
+}
+
+/// 账户
+model Account {
+  id       Int         @id @default(autoincrement())
+  userId   Int
+  name     String
+  /// 账户余额
+  balance  Float       @default(0)
+  /// 账户类型
+  type     AccountType
+  createAt DateTime    @default(now())
+  updateAt DateTime    @updatedAt
+
+  user                 User          @relation(fields: [userId], references: [id])
+  paymentTransaction   Transaction[] @relation("PaymentTransactionRelation")
+  receivingTransaction Transaction[] @relation("ReceivingTransactionRelation")
+}
+
+/// 空间
+model Space {
+  id       Int      @id @default(autoincrement())
+  name     String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  users       User[]
+  categories  Category[]
+  Transaction Transaction[]
+}
+
+/// 分类
+model Category {
+  id       Int      @id @default(autoincrement())
+  /// 父分类
+  parentId Int?
+  /// 所属空间
+  spaceId  Int
+  /// 名称
+  name     String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  parent       Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
+  childrens    Category[]    @relation("CategoryToCategory")
+  space        Space         @relation(fields: [spaceId], references: [id])
+  transactions Transaction[]
+}
+
+/// 交易类型
+enum TransactionType {
+  /// 支出
+  Payment
+  /// 收入
+  Income
+  /// 转账
+  Transfer
+  /// 债务
+  Debt
+}
+
+/// 交易记录
+model Transaction {
+  id                 Int             @id @default(autoincrement())
+  /// 创建者
+  creatorId          Int
+  /// 所属空间
+  spaceId            Int
+  /// 付款账户
+  paymentAccountId   Int?
+  /// 收款账户/债务账户
+  receivingAccountId Int?
+  /// 类别
+  categoryId         Int
+  /// 交易类型
+  type               TransactionType
+  /// 金额/本金
+  amount             Float
+  /// 还款利息
+  interest           Float?
+  /// 交易时间
+  date               DateTime        @default(now())
+  /// 说明
+  description        String?
+  createAt           DateTime        @default(now())
+  updateAt           DateTime        @updatedAt
+
+  creator          User     @relation(fields: [creatorId], references: [id])
+  space            Space    @relation(fields: [spaceId], references: [id])
+  category         Category @relation(fields: [categoryId], references: [id])
+  paymentAccount   Account? @relation(name: "PaymentTransactionRelation", fields: [paymentAccountId], references: [id])
+  receivingAccount Account? @relation(name: "ReceivingTransactionRelation", fields: [receivingAccountId], references: [id])
+}
