@@ -15,9 +15,3 @@ export class CreateUserArgs {
   username: string;
   password: string;
 }
-
-@ArgsType()
-export class AuthArgs {
-  username: string;
-  password: string;
-}
