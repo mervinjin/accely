@@ -12,6 +12,7 @@ model User {
   id       Int      @id @default(autoincrement())
   username String   @unique
   password String
+  nickname String
   updateAt DateTime @updatedAt
 
   accounts  Account[]
@@ -31,7 +32,7 @@ model Account {
   userId     Int
   currencyId Int
   name       String
-  balance    Float
+  balance    Float       @default(0)
   type       AccountType
   updateAt   DateTime    @updatedAt
 
@@ -71,13 +72,27 @@ model SpaceUser {
   space Space @relation(fields: [spaceId], references: [id])
 }
 
+model DefaultCategory {
+  id       Int      @id @default(autoincrement())
+  parentId Int?
+  name     String
+  updateAt DateTime @updatedAt
+
+  parent DefaultCategory?  @relation("DefaultCategoryRelation", fields: [parentId], references: [id])
+  childs DefaultCategory[] @relation("DefaultCategoryRelation")
+}
+
 model Category {
   id       Int      @id @default(autoincrement())
+  parentId Int?
   spaceId  Int
+  name     String
   updateAt DateTime @updatedAt
 
   space        Space         @relation(fields: [spaceId], references: [id])
   transactions Transaction[]
+  parent       Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
+  childs       Category[]    @relation("CategoryToCategory")
 }
 
 enum BillType {

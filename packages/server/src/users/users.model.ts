@@ -14,4 +14,5 @@ export class User implements IUser {
 export class CreateUserArgs {
   username: string;
   password: string;
+  nickname: string;
 }
