@@ -19,6 +19,14 @@ export class SpacesService {
 
   /** 将用户添加到指定空间中 */
   async addUser(spaceId: number, userId: number) {
+    const spaceUserRecord = await this.prismaService.spaceUser.findFirst({
+      where: { spaceId, userId },
+    });
+
+    if (spaceUserRecord) {
+      return spaceUserRecord;
+    }
+
     return this.prismaService.spaceUser.create({ data: { userId, spaceId } });
   }
 
