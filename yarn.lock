@@ -2461,17 +2461,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/passport-local@npm:^1.0.33":
-  version: 1.0.33
-  resolution: "@types/passport-local@npm:1.0.33"
-  dependencies:
-    "@types/express": "*"
-    "@types/passport": "*"
-    "@types/passport-strategy": "*"
-  checksum: 64ba3584de0876a9f5e42ae23cfba823e403c78a18148a46a456e3db6f8bbd0d344d84443ba7befc4d286ab9ad10d719ffdcb2bd722cdd985543a3c6723fb77e
-  languageName: node
-  linkType: hard
-
 "@types/passport-strategy@npm:*":
   version: 0.2.35
   resolution: "@types/passport-strategy@npm:0.2.35"
@@ -8851,15 +8840,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport-local@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "passport-local@npm:1.0.0"
-  dependencies:
-    passport-strategy: 1.x.x
-  checksum: 2d3decab3fde758227c42c5780ffa7fac50759fcf56b49a845de05c72062e2f5b2288ab1badddba0fb6d21eb3d5b4e4bb1083b922624ac4fe90e97fcba0f3b96
-  languageName: node
-  linkType: hard
-
 "passport-strategy@npm:1.x.x, passport-strategy@npm:^1.0.0":
   version: 1.0.0
   resolution: "passport-strategy@npm:1.0.0"
@@ -9836,7 +9816,6 @@ __metadata:
     "@types/jest": ^26.0.22
     "@types/node": ^14.14.36
     "@types/passport-jwt": ^3.0.5
-    "@types/passport-local": ^1.0.33
     "@types/supertest": ^2.0.10
     "@typescript-eslint/eslint-plugin": ^4.19.0
     "@typescript-eslint/parser": ^4.19.0
@@ -9849,7 +9828,6 @@ __metadata:
     jest: ^26.6.3
     passport: ^0.4.1
     passport-jwt: ^4.0.0
-    passport-local: ^1.0.0
     prettier: ^2.2.1
     prisma: ^2.20.1
     reflect-metadata: ^0.1.13
