@@ -7,6 +7,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
 /// 用户
 model User {
   id       Int      @id @default(autoincrement())
@@ -44,6 +48,7 @@ model Account {
   Debt               Debt[]
 }
 
+/// 货币
 model Currency {
   id       Int      @id @default(autoincrement())
   name     String
@@ -53,6 +58,7 @@ model Currency {
   Account Account[]
 }
 
+/// 空间
 model Space {
   id       Int      @id @default(autoincrement())
   name     String
@@ -62,6 +68,7 @@ model Space {
   SpaceUser SpaceUser[]
 }
 
+/// 空间-用户的关联
 model SpaceUser {
   id       Int      @id @default(autoincrement())
   userId   Int
@@ -72,27 +79,31 @@ model SpaceUser {
   space Space @relation(fields: [spaceId], references: [id])
 }
 
+/// 默认分类信息
 model DefaultCategory {
   id       Int      @id @default(autoincrement())
   parentId Int?
   name     String
+  isGroup  Boolean
   updateAt DateTime @updatedAt
 
-  parent DefaultCategory?  @relation("DefaultCategoryRelation", fields: [parentId], references: [id])
-  childs DefaultCategory[] @relation("DefaultCategoryRelation")
+  parnent  DefaultCategory?  @relation("DefaultCategoryToDefaultCategory", fields: [parentId], references: [id])
+  children DefaultCategory[] @relation("DefaultCategoryToDefaultCategory")
 }
 
+/// 分类信息
 model Category {
   id       Int      @id @default(autoincrement())
   parentId Int?
   spaceId  Int
   name     String
+  isGroup  Boolean
   updateAt DateTime @updatedAt
 
   space        Space         @relation(fields: [spaceId], references: [id])
   transactions Transaction[]
   parent       Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
-  childs       Category[]    @relation("CategoryToCategory")
+  children     Category[]    @relation("CategoryToCategory")
 }
 
 enum BillType {

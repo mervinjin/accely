@@ -1,8 +1,9 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import 'reflect-metadata'
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
-bootstrap();
+import { buildSchema } from 'type-graphql'
+import { resolvers } from '@generated/type-graphql'
+console.log('hello')
+
+const schema = await buildSchema({
+  resolvers: [...resolvers],
+})
