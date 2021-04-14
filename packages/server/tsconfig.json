@@ -5,11 +5,15 @@
       "@/*": ["src/*"]
     },
     "target": "es2020",
-    "module": "esnext",
     "lib": ["esnext"],
+    "module": "commonjs",
     "moduleResolution": "node",
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["**/*"]
+  "include": ["src/**/*"]
 }

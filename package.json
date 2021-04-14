@@ -8,10 +8,8 @@
   "scripts": {
     "client": "yarn workspace client",
     "server": "yarn workspace server",
-    "nest:g": "yarn workspace server nest g",
     "db:up": "docker-compose up -d",
-    "db:down": "docker-compose down",
-    "postinstall": "yarn workspace server prisma generate"
+    "db:down": "docker-compose down"
   },
   "devDependencies": {
     "eslint": "^7.23.0",
