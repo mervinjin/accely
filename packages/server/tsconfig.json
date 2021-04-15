@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "target": "es2020",
+    "lib": ["esnext"],
     "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
-  }
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src/**/*"]
 }
