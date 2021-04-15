@@ -7126,14 +7126,29 @@
         "signature": "022d0e5b18aa33e48e53e2fc7a558ee448a29cba6fe163a36cd5ece60cd1f7ff",
         "affectsGlobalScope": false
       },
+      "./node_modules/.prisma/client/index.d.ts": {
+        "version": "1195b38be862a8ef4ca087d30457d7d305ad515e2f8a53f9af2740c5e68d007e",
+        "signature": "1195b38be862a8ef4ca087d30457d7d305ad515e2f8a53f9af2740c5e68d007e",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/jsonwebtoken/index.d.ts": {
+        "version": "82cffc446a000271c34cdf657c5aaa397c87183762431efe5e09660979cce586",
+        "signature": "82cffc446a000271c34cdf657c5aaa397c87183762431efe5e09660979cce586",
+        "affectsGlobalScope": false
+      },
+      "./src/helpers/jwt.ts": {
+        "version": "9beba37bd4d953575fb7fccc00272b361a8ffdcb066ea3e221d0461b1bd903b6",
+        "signature": "b4e74f140c736c6d7f6c3f614212495387327d8084648ce508c4b1ca1dab348c",
+        "affectsGlobalScope": false
+      },
       "./src/index.ts": {
-        "version": "2994445b1298294662a792505166031834b5bc0916439449da8e844f53921ce2",
+        "version": "79bed0e04b44c147d81c9f4c5fc4a1bc970f05b0d76131fae341c007fb19012e",
         "signature": "396a3607ca8288c7dd02dff9b04e6ffb057b3c6f3d12965421373c3da78b65cc",
         "affectsGlobalScope": false
       },
       "./src/types/index.d.ts": {
-        "version": "7bd6ca64a86972a77db8abf7c17d6adf2ceda1d78fedd3531eda469664344ec8",
-        "signature": "7bd6ca64a86972a77db8abf7c17d6adf2ceda1d78fedd3531eda469664344ec8",
+        "version": "cb61c70150b76c8197b527ffca0e9dcb4b626454ffc117158911519707ee0cfc",
+        "signature": "cb61c70150b76c8197b527ffca0e9dcb4b626454ffc117158911519707ee0cfc",
         "affectsGlobalScope": true
       },
       "../../node_modules/@types/cross-spawn/index.d.ts": {
@@ -7159,11 +7174,6 @@
       "../../node_modules/@types/json-schema/index.d.ts": {
         "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
         "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/jsonwebtoken/index.d.ts": {
-        "version": "82cffc446a000271c34cdf657c5aaa397c87183762431efe5e09660979cce586",
-        "signature": "82cffc446a000271c34cdf657c5aaa397c87183762431efe5e09660979cce586",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/keyv/index.d.ts": {
@@ -7410,12 +7420,13 @@
       ],
       "module": 1,
       "moduleResolution": 2,
+      "strict": true,
       "noEmit": true,
       "incremental": true,
       "skipLibCheck": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "pathsBasePath": "/Users/mervin/Projects/accely/packages/server",
+      "pathsBasePath": "/Users/kein/Projects/accely/packages/server",
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -9834,6 +9845,9 @@
       ],
       "../../node_modules/zen-observable-ts/lib/zenobservable.d.ts": [
         "../../node_modules/zen-observable-ts/lib/types.d.ts"
+      ],
+      "./node_modules/.prisma/client/index.d.ts": [
+        "../../node_modules/@prisma/client/runtime/index.d.ts"
       ],
       "./node_modules/@generated/type-graphql/enhance.d.ts": [
         "./node_modules/@generated/type-graphql/models/index.d.ts",
@@ -14191,12 +14205,17 @@
       "./node_modules/@generated/type-graphql/scalars.d.ts": [
         "../../node_modules/graphql/index.d.ts"
       ],
+      "./src/helpers/jwt.ts": [
+        "../../node_modules/@types/jsonwebtoken/index.d.ts",
+        "./node_modules/.prisma/client/index.d.ts"
+      ],
       "./src/index.ts": [
         "../../node_modules/@prisma/client/index.d.ts",
         "../../node_modules/apollo-server/dist/index.d.ts",
         "../../node_modules/reflect-metadata/index.d.ts",
         "../../node_modules/type-graphql/dist/index.d.ts",
-        "./node_modules/@generated/type-graphql/index.d.ts"
+        "./node_modules/@generated/type-graphql/index.d.ts",
+        "./src/helpers/jwt.ts"
       ],
       "./src/types/index.d.ts": [
         "../../node_modules/@prisma/client/index.d.ts"
@@ -16619,6 +16638,9 @@
       "../../node_modules/zen-observable-ts/lib/zenobservable.d.ts": [
         "../../node_modules/zen-observable-ts/lib/types.d.ts"
       ],
+      "./node_modules/.prisma/client/index.d.ts": [
+        "../../node_modules/@prisma/client/runtime/index.d.ts"
+      ],
       "./node_modules/@generated/type-graphql/enhance.d.ts": [
         "./node_modules/@generated/type-graphql/models/index.d.ts",
         "./node_modules/@generated/type-graphql/resolvers/crud/args.index.d.ts",
@@ -20975,6 +20997,9 @@
       "./node_modules/@generated/type-graphql/scalars.d.ts": [
         "../../node_modules/graphql/index.d.ts"
       ],
+      "./src/helpers/jwt.ts": [
+        "./node_modules/.prisma/client/index.d.ts"
+      ],
       "./src/index.ts": [
         "../../node_modules/reflect-metadata/index.d.ts"
       ],
@@ -21566,6 +21591,7 @@
       "../../node_modules/zen-observable-ts/lib/index.d.ts",
       "../../node_modules/zen-observable-ts/lib/types.d.ts",
       "../../node_modules/zen-observable-ts/lib/zenobservable.d.ts",
+      "./node_modules/.prisma/client/index.d.ts",
       "./node_modules/@generated/type-graphql/enhance.d.ts",
       "./node_modules/@generated/type-graphql/enums/accountscalarfieldenum.d.ts",
       "./node_modules/@generated/type-graphql/enums/accounttype.d.ts",
@@ -22460,6 +22486,7 @@
       "./node_modules/typescript/lib/lib.esnext.promise.d.ts",
       "./node_modules/typescript/lib/lib.esnext.string.d.ts",
       "./node_modules/typescript/lib/lib.esnext.weakref.d.ts",
+      "./src/helpers/jwt.ts",
       "./src/index.ts",
       "./src/types/index.d.ts"
     ],
@@ -24794,6 +24821,10 @@
       ],
       [
         "../../node_modules/zen-observable-ts/lib/zenobservable.d.ts",
+        1
+      ],
+      [
+        "./node_modules/.prisma/client/index.d.ts",
         1
       ],
       [
@@ -28230,6 +28261,10 @@
       ],
       [
         "./node_modules/typescript/lib/lib.esnext.d.ts",
+        1
+      ],
+      [
+        "./src/helpers/jwt.ts",
         1
       ],
       [
