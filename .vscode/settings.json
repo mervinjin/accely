@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
-    "accely"
+    "accely",
+    "outdir"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

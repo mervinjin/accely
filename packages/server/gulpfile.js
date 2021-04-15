@@ -1,4 +1,5 @@
 const esbuild = require('esbuild')
+const { watch, parallel, series } = require('gulp')
 const nodemon = require('gulp-nodemon')
 const { nodeExternalsPlugin } = require('esbuild-node-externals')
 
@@ -18,16 +19,16 @@ async function build() {
   return esbuild.build(options).catch(() => process.exit(1))
 }
 
-async function dev(done) {
-  await build()
+async function watchSrc() {
+  return watch(['src/**/*'], build)
+}
+
+async function serve(done) {
   return nodemon({
-    script: 'dist/',
-    watch: 'src/**/*',
-    ext: 'ts',
-    tasks: ['build'],
+    script: 'dist/index.js',
     done: done,
   })
 }
 
 exports.build = build
-exports.dev = dev
+exports.dev = parallel(series(build, watchSrc), serve)
