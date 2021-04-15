@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/**/*"
   ],
+  "volta": {
+    "node": "14.16.1"
+  },
   "scripts": {
     "client": "yarn workspace client",
     "server": "yarn workspace server",
