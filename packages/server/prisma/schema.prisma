@@ -19,14 +19,18 @@ model User {
   nickname String
   updateAt DateTime @updatedAt
 
-  accounts  Account[]
-  bills     Bill[]
-  SpaceUser SpaceUser[]
+  /// 用户账户信息
+  accounts Account[]
+  spaces   Space[]
 }
 
+/// 账户类型
 enum AccountType {
+  /// 支付账户
   Payment
+  /// 信用账户
   Credit
+  /// 资产
   Assets
 }
 
@@ -40,22 +44,9 @@ model Account {
   type       AccountType
   updateAt   DateTime    @updatedAt
 
-  currency           Currency      @relation(fields: [currencyId], references: [id])
-  user               User          @relation(fields: [userId], references: [id])
-  transactions       Transaction[]
-  sendingTransfers   Transfer[]    @relation("TransferSendingRelation")
-  receivingTransfers Transfer[]    @relation("TransferReceingRelation")
-  Debt               Debt[]
-}
-
-/// 货币
-model Currency {
-  id       Int      @id @default(autoincrement())
-  name     String
-  code     String
-  updateAt DateTime @updatedAt
-
-  Account Account[]
+  user                 User          @relation(fields: [userId], references: [id])
+  paymentTransaction   Transaction[] @relation("PaymentTransactionRelation")
+  receivingTransaction Transaction[] @relation("ReceivingTransactionRelation")
 }
 
 /// 空间
@@ -64,49 +55,30 @@ model Space {
   name     String
   updateAt DateTime @updatedAt
 
-  categorys Category[]
-  SpaceUser SpaceUser[]
+  users       User[]
+  tags        Tag[]
+  Transaction Transaction[]
 }
 
-/// 空间-用户的关联
-model SpaceUser {
+/// 标签
+model Tag {
   id       Int      @id @default(autoincrement())
-  userId   Int
-  spaceId  Int
-  updateAt DateTime @updatedAt
-
-  user  User  @relation(fields: [userId], references: [id])
-  space Space @relation(fields: [spaceId], references: [id])
-}
-
-/// 默认分类信息
-model DefaultCategory {
-  id       Int      @id @default(autoincrement())
+  /// 父标签
   parentId Int?
-  name     String
-  isGroup  Boolean
-  updateAt DateTime @updatedAt
-
-  parnent  DefaultCategory?  @relation("DefaultCategoryToDefaultCategory", fields: [parentId], references: [id])
-  children DefaultCategory[] @relation("DefaultCategoryToDefaultCategory")
-}
-
-/// 分类信息
-model Category {
-  id       Int      @id @default(autoincrement())
-  parentId Int?
+  /// 所属空间
   spaceId  Int
+  /// 标签名称
   name     String
-  isGroup  Boolean
   updateAt DateTime @updatedAt
 
+  parent       Tag?          @relation("TagToTag", fields: [parentId], references: [id])
+  childrens    Tag[]         @relation("TagToTag")
   space        Space         @relation(fields: [spaceId], references: [id])
   transactions Transaction[]
-  parent       Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
-  children     Category[]    @relation("CategoryToCategory")
 }
 
-enum BillType {
+/// 交易类型
+enum TransactionType {
   /// 支出
   Payment
   /// 收入
@@ -117,59 +89,27 @@ enum BillType {
   Debt
 }
 
+/// 交易记录
 model Transaction {
-  id         Int      @id @default(autoincrement())
-  accountId  Int
-  categoryId Int
-  billId     Int
-  amount     Int
-  updateAt   DateTime @updatedAt
+  id                 Int             @id @default(autoincrement())
+  /// 所属空间
+  spaceId            Int
+  /// 标签（非聚合交易）
+  tagId              Int?
+  /// 付款账户
+  paymentAccountId   Int?
+  /// 收款账户/债务账户
+  receivingAccountId Int?
+  /// 交易类型
+  type               TransactionType
+  /// 金额/本金
+  amount             Float
+  /// 还款利息
+  interest           Float?
+  updateAt           DateTime        @updatedAt
 
-  account  Account  @relation(fields: [accountId], references: [id])
-  bill     Bill     @relation(fields: [billId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
-}
-
-model Transfer {
-  id                 Int      @id @default(autoincrement())
-  billId             Int
-  amount             Int
-  sendingAccountId   Int
-  receivingAccountId Int
-  updateAt           DateTime @updatedAt
-
-  bill             Bill    @relation(fields: [billId], references: [id])
-  sendingAccount   Account @relation(name: "TransferSendingRelation", fields: [sendingAccountId], references: [id])
-  receivingAccount Account @relation(name: "TransferReceingRelation", fields: [receivingAccountId], references: [id])
-}
-
-enum DebtType {
-  /// 借入
-  Loan
-  /// 偿还
-  Repay
-}
-
-model Debt {
-  id        Int      @id @default(autoincrement())
-  billId    Int
-  accountId Int
-  amount    Float
-  type      DebtType
-  updateAt  DateTime @updatedAt
-
-  account Account @relation(fields: [accountId], references: [id])
-  bill    Bill    @relation(fields: [billId], references: [id])
-}
-
-model Bill {
-  id       Int      @id @default(autoincrement())
-  userId   Int
-  type     BillType
-  updateAt DateTime @updatedAt
-
-  user         User          @relation(fields: [userId], references: [id])
-  transactions Transaction[]
-  transfers    Transfer[]
-  debts        Debt[]
+  space            Space    @relation(fields: [spaceId], references: [id])
+  tags             Tag[]
+  paymentAccount   Account? @relation(name: "PaymentTransactionRelation", fields: [paymentAccountId], references: [id])
+  receivingAccount Account? @relation(name: "ReceivingTransactionRelation", fields: [receivingAccountId], references: [id])
 }
