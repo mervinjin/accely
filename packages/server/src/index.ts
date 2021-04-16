@@ -1,14 +1,16 @@
 import 'reflect-metadata'
+import { ApolloServer } from 'apollo-server'
 import { buildSchema } from 'type-graphql'
 import { FindManyUserResolver } from '@generated/type-graphql'
-import { ApolloServer } from 'apollo-server'
 import { PrismaClient } from '@prisma/client'
 import { jwt } from './helpers/jwt'
+import { authChecker } from './helpers/auth-checker'
 
 const PORT = process.env.PORT || 4000
 async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [FindManyUserResolver],
+    authChecker: authChecker,
   })
 
   const prisma = new PrismaClient()

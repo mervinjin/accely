@@ -5,6 +5,7 @@ const secretKey = process.env.JWT_SECRET ?? 'vsBRuW598qQQzy3l9Lee6'
 
 export const jwt = {
   sign(user: User) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...safeData } = user
     const token = sign(safeData, secretKey)
     return token
