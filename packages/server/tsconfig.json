@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "strict": true,
     "noEmit": true,
+    "strictPropertyInitialization": false,
     "incremental": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
