@@ -1,18 +1,13 @@
 import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server'
-import { buildSchema } from 'type-graphql'
 import { PrismaClient } from '@prisma/client'
-import { jwt } from '@/helpers/jwt'
-import { authChecker } from '@/helpers/auth-checker'
+import { jwt } from '@/utils/jwt'
+import { createSchema } from '@/utils/create-schema'
 
 const PORT = process.env.PORT || 4000
-const resolversGlob = __dirname + '/resolvers/*.resolver.ts'
 
 async function bootstrap() {
-  const schema = await buildSchema({
-    resolvers: [resolversGlob],
-    authChecker: authChecker,
-  })
+  const schema = await createSchema()
   const prisma = new PrismaClient()
   const server = new ApolloServer({
     schema,
@@ -21,7 +16,6 @@ async function bootstrap() {
     context({ req }): ContextType {
       const token: string = req.headers.authorization || ''
       const user = jwt.verify(token)
-
       return { prisma, user }
     },
   })
