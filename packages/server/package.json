@@ -3,10 +3,12 @@
   "scripts": {
     "start": "ts-eager src/index.ts",
     "dev": "nodemon -e ts,tsx --exec ts-eager src/index.ts",
-    "test": "jest",
+    "test": "pnpm db:push-test && jest",
     "lint": "eslint . --fix && tsc",
     "format": "prettier --write .",
     "prepare": "prisma generate",
+    "db:push-test": "prisma db push --preview-feature --schema=prisma/schema_test.prisma --accept-data-loss --force-reset --skip-generate",
+    "db:push": "prisma db push --preview-feature",
     "db:up": "docker-compose -f docker/docker-compose.yml up -d",
     "db:down": "docker-compose -f docker/docker-compose.yml down"
   },

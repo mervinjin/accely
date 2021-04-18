@@ -15,10 +15,6 @@ export function getContext({ user }: GetContextArgs = {}): ContextType {
 }
 
 beforeAll(async () => {
-  if (!process.env.TEST_DATABASE_URL) {
-    throw new Error('未配置测试数据（process.env.TEST_DATABASE_URL）!')
-  }
-
   prisma = new PrismaClient({
     datasources: {
       db: {
