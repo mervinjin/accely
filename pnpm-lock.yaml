@@ -44,6 +44,7 @@ importers:
   packages/server:
     specifiers:
       '@prisma/client': 2.20.1
+      '@types/faker': ^5.5.2
       '@types/graphql-fields': ^1.3.3
       '@types/jest': ^26.0.22
       '@types/jsonwebtoken': ^8.5.1
@@ -51,13 +52,16 @@ importers:
       '@typescript-eslint/parser': ^4.22.0
       apollo-server: ^2.23.0
       class-validator: ^0.13.1
+      dotenv: ^8.2.0
       eslint: ^7.24.0
       eslint-config-prettier: ^8.2.0
+      faker: ^5.5.3
       graphql: ^15.5.0
       graphql-fields: ^2.0.3
       graphql-scalars: ^1.9.0
       jest: ^26.6.3
       jsonwebtoken: ^8.5.1
+      nanoid: ^3.1.22
       nodemon: ^2.0.7
       prettier: ^2.2.1
       prisma: ~2.20.1
@@ -79,6 +83,7 @@ importers:
       graphql-fields: 2.0.3
       graphql-scalars: 1.9.0_graphql@15.5.0
       jsonwebtoken: 8.5.1
+      nanoid: 3.1.22
       prisma: 2.20.1
       reflect-metadata: 0.1.13
       ts-eager: 1.1.3
@@ -88,11 +93,14 @@ importers:
       typegraphql-prisma: 0.13.0_8e39afaeafabd0384da279f2ccf9a7df
       typescript: 4.2.4
     devDependencies:
+      '@types/faker': 5.5.2
       '@types/jest': 26.0.22
       '@typescript-eslint/eslint-plugin': 4.22.0_9acede93a3623dd7abe65c65a7010e73
       '@typescript-eslint/parser': 4.22.0_eslint@7.24.0+typescript@4.2.4
+      dotenv: 8.2.0
       eslint: 7.24.0
       eslint-config-prettier: 8.2.0_eslint@7.24.0
+      faker: 5.5.3
       jest: 26.6.3_ts-node@9.1.1
       nodemon: 2.0.7
       prettier: 2.2.1
@@ -1081,6 +1089,10 @@ packages:
       '@types/qs': 6.9.6
       '@types/serve-static': 1.13.9
     dev: false
+
+  /@types/faker/5.5.2:
+    resolution: {integrity: sha512-KRBp6Cb2BsC/mz1m2oRp79KlEViX/nTZSunRPltXHpxEEEvFg1wQbgGJeJY+TGQHHZCx0F+jskPDwrkEovbvwA==}
+    dev: true
 
   /@types/fs-capacitor/2.0.0:
     resolution: {integrity: sha512-FKVPOCFbhCvZxpVAMhdBdTfVfXUpsh15wFHgqOKxh9N9vzWZVuWCSijZ5T4U34XYNnuj2oduh6xcs1i+LPI+BQ==}
@@ -2663,7 +2675,6 @@ packages:
   /dotenv/8.2.0:
     resolution: {integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==}
     engines: {node: '>=8'}
-    dev: false
 
   /duplexer3/0.1.4:
     resolution: {integrity: sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=}
@@ -3105,6 +3116,10 @@ packages:
   /extsprintf/1.3.0:
     resolution: {integrity: sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=}
     engines: {'0': node >=0.6.0}
+    dev: true
+
+  /faker/5.5.3:
+    resolution: {integrity: sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==}
     dev: true
 
   /fast-deep-equal/3.1.3:
@@ -4997,7 +5012,6 @@ packages:
     resolution: {integrity: sha512-/2ZUaJX2ANuLtTvqTlgqBQNJoQO398KyJgZloL0PZkC0dpysjncRUPsFe3DUPzz/y3h+u7C46np8RMuvF3jsSQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
   /nanomatch/1.2.13:
     resolution: {integrity: sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA==}

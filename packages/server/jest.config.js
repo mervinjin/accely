@@ -9,6 +9,15 @@ const moduleNameMapper = pathsToModuleNameMapper(paths, {
 
 module.exports = {
   collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/*.type.ts',
+    '!src/decorators/**',
+    '!src/types/**',
+    '!src/index.ts',
+    '!src/utils/auth-checker.ts',
+    '!src/utils/create-schema.ts',
+  ],
   moduleNameMapper,
   modulePaths: [`<rootDir>/${baseUrl}`],
   preset: 'ts-jest',

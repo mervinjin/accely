@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server'
 import { Args, Ctx, Query, Resolver } from 'type-graphql'
-import { jwt } from '@/helpers/jwt'
+import { jwt } from '@/utils/jwt'
 import { UserAuthArgs, UserAuthResult } from './user.type'
 
 @Resolver()
@@ -11,7 +11,7 @@ export class UserResolver {
     const { prisma } = context
     const user = await prisma.user.findUnique({ where: { username } })
 
-    if (!user || user.password === password) {
+    if (!user || user.password !== password) {
       throw new AuthenticationError('账号或密码错误')
     }
 
