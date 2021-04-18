@@ -11,7 +11,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.ts',
-    '!src/*.type.ts',
+    '!src/**/*.type.ts',
     '!src/decorators/**',
     '!src/types/**',
     '!src/index.ts',

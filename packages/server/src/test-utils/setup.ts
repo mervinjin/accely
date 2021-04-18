@@ -31,9 +31,5 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  await prisma.account.deleteMany()
-  await prisma.space.deleteMany()
-  await prisma.transaction.deleteMany()
-  await prisma.user.deleteMany()
   await prisma.$disconnect()
 })
