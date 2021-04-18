@@ -1,18 +1,18 @@
 import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server'
 import { buildSchema } from 'type-graphql'
-import { FindManyUserResolver } from '@generated/type-graphql'
 import { PrismaClient } from '@prisma/client'
-import { jwt } from './helpers/jwt'
-import { authChecker } from './helpers/auth-checker'
+import { jwt } from '@/helpers/jwt'
+import { authChecker } from '@/helpers/auth-checker'
 
 const PORT = process.env.PORT || 4000
+const resolversGlob = __dirname + '/resolvers/*.resolver.ts'
+
 async function bootstrap() {
   const schema = await buildSchema({
-    resolvers: [FindManyUserResolver],
+    resolvers: [resolversGlob],
     authChecker: authChecker,
   })
-
   const prisma = new PrismaClient()
   const server = new ApolloServer({
     schema,
@@ -27,7 +27,6 @@ async function bootstrap() {
   })
 
   const { url } = await server.listen(PORT)
-
   console.log(`Server is running, GraphQL Playground available at ${url}`)
 }
 
