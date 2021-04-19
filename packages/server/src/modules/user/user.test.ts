@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import faker from 'faker'
 import { jwt } from '@/utils/jwt'
-import { getContext } from '@/test-utils/setup'
+import { getContext, prisma } from '@/test-utils/setup'
 import { createUser } from '@/test-utils/data-generator'
 import { UserResolver } from './user.resolver'
 
@@ -46,9 +46,15 @@ describe('User resolver', () => {
         password: nanoid(),
       }
       const user = await userResolver.signUp(input, getContext())
+      const space = await prisma.space.findFirst({
+        where: { users: { some: { username: user.username } } },
+      })
+
       expect(user).toHaveProperty('username', input.username)
       expect(user).toHaveProperty('nickname', input.nickname)
       expect(user).not.toHaveProperty('password')
+      expect(user).not.toHaveProperty('spaces')
+      expect(space).toBeTruthy()
     })
   })
 })

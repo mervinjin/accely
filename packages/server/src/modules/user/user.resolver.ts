@@ -20,14 +20,6 @@ export class UserResolver {
     const { prisma } = context
     const user = await prisma.user.findUnique({ where: { username } })
 
-    if (user) {
-      console.log(
-        user,
-        await crypt.compare(password, user.password),
-        await crypt.compare(user.password, password)
-      )
-    }
-
     if (!user || !(await crypt.compare(password, user.password))) {
       throw new AuthenticationError('账号或密码错误')
     }
@@ -50,10 +42,16 @@ export class UserResolver {
     }
 
     const newUser = (await prisma.user.create({
-      data: { ...input, password: await crypt.hash(input.password) },
+      data: {
+        ...input,
+        password: await crypt.hash(input.password),
+        spaces: { create: { name: input.nickname } },
+      },
     })) as UserInfo
 
     delete newUser.password
+    delete newUser.spaces
+
     return newUser
   }
 }
