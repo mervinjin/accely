@@ -2,7 +2,10 @@
   "cSpell.words": [
     "accely",
     "datasources",
-    "outdir"
+    "outdir",
+    "sveltejs",
+    "vercel",
+    "vite"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
