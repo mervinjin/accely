@@ -5,13 +5,13 @@ const pkg = require('./package.json')
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
   preprocess: [
-		sveltePreprocess({
-			defaults: {
-				style: "postcss",
-			},
-			postcss: true
-		}),
-	],
+    sveltePreprocess({
+      defaults: {
+        style: 'postcss',
+      },
+      postcss: true,
+    }),
+  ],
   kit: {
     adapter: vercel(),
     target: '#svelte',
