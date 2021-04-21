@@ -1,5 +1,4 @@
 {
   "cSpell.words": ["accely", "datasources", "outdir", "sveltejs", "vercel", "vite"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "svelte.plugin.css.diagnostics.enable": false
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
