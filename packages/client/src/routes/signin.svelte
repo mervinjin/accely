@@ -1,7 +1,18 @@
 <script>
+  import { fade, fly } from 'svelte/transition'
+
   let username = ''
   let password = ''
+  let error = ''
+
+  function handleSubmit() {
+    if (!username) {
+      error = '请输入用户名！'
+    }
+  }
 </script>
+
+<slot />
 
 <div class="signin-cotainer">
   <div class="logo-box">
@@ -9,7 +20,7 @@
     <span class="title">Accely</span>
   </div>
 
-  <form class="signin-form">
+  <form class="signin-form" on:submit|preventDefault={handleSubmit}>
     <input
       class="input"
       name="username"
@@ -22,18 +33,21 @@
       placeholder="密码"
       bind:value={password}
     />
-    <button class="submitbutton">登录</button>
+    {#if error}
+      <span class="error" transition:fade>{error}</span>
+    {/if}
+    <button class="submitbutton" type="submit">登录</button>
   </form>
 </div>
 
-<style lang="postcss">
+<style>
   .signin-cotainer {
-    @apply p-8 w-full h-full;
-    @apply grid gap-16 justify-center content-center items-center;
+    @apply p-10 pt-20 w-full h-full;
+    @apply grid gap-16 content-start items-center;
   }
 
   .logo-box {
-    @apply w-full grid justify-center justify-items-center gap-4;
+    @apply w-full grid justify-self-stretch justify-items-center gap-4;
 
     > .logo {
       @apply w-32;
@@ -45,14 +59,18 @@
   }
 
   .signin-form {
-    @apply grid justify-center gap-4;
+    @apply mb-10 w-full grid justify-self-stretch gap-4;
 
     .input {
-      @apply px-4 py-2 w-72 border-b;
+      @apply px-4 py-2  border-b;
+    }
+
+    .error {
+      @apply text-sm text-red-500;
     }
 
     .submitbutton {
-      @apply mt-16 p-4  bg-black text-white rounded;
+      @apply mt-16 p-4 bg-black text-white rounded;
     }
   }
 </style>
