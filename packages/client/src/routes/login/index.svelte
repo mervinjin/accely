@@ -1,18 +1,28 @@
-<div class="accely-logo">
-  <img class="logoicon" alt="logo" src="/logo.png" />
-  <span class="logotitle">Accely</span>
+<div class="login-container">
+  <div class="logo-box">
+    <img class="logo" alt="logo" src="/logo.svg" />
+    <span class="title">Accely</span>
+  </div>
 </div>
 
 <style lang="postcss">
-  .accely-logo {
-    @apply w-full grid justify-center gap-4;
+  .login-container {
+    @apply w-full h-full;
+    @apply grid justify-center content-center;
   }
 
-  .accely-logo > .logoicon {
+  .logo-box {
+    @apply w-full grid justify-center gap-4;
+
+    .logo {
+    }
+  }
+
+  .logo-box > .logo {
     @apply w-36;
   }
 
-  .accely-logo > .logotitle {
+  .logo-box > .title {
     @apply text-4xl font-mono;
   }
 </style>
