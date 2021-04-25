@@ -21,4 +21,7 @@ module.exports = {
     es2017: true,
     node: true,
   },
+  rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+  },
 }
