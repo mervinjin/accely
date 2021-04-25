@@ -2,6 +2,19 @@ import { getToken, setToken } from '$lib/utils/token'
 import { GraphQLClient } from 'graphql-request'
 import { getSdk } from './sdk'
 
+interface GraphqlError {
+  response: {
+    errors: { message: string }[]
+    data: null
+  }
+}
+
+type Action<T, V> = (input: T, headers: HeadersInit | undefined) => Promise<V>
+
+interface QueryOptions<V> {
+  onSuccess?(value: V): void
+}
+
 const endpoint = 'http://localhost:4001/'
 const client = new GraphQLClient(endpoint)
 const sdk = getSdk(client)
@@ -13,15 +26,28 @@ function getHeaders() {
   }
 }
 
-function handleError(error: unknown): never {
-  // TODO: show notification
-  throw error
+function isGraphqlError(error: unknown): error is GraphqlError {
+  if (typeof error !== 'object' || error === null) {
+    return false
+  }
+
+  if ((error as GraphqlError).response?.errors) {
+    return true
+  }
+
+  return false
 }
 
-type Action<T, V> = (input: T, headers: HeadersInit | undefined) => Promise<V>
+function handleError(error: unknown): never {
+  if (!isGraphqlError(error)) {
+    throw error
+  }
 
-interface QueryOptions<V> {
-  onSuccess?(value: V): void
+  const {
+    response: { errors },
+  } = error
+
+  throw errors.length > 0 ? errors[0].message : error
 }
 
 function query<T, V>(

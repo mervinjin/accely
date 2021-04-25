@@ -1,5 +1,5 @@
 <script>
-  export let error: string
+  export let error: string | undefined
 </script>
 
 <div class="form-controller">

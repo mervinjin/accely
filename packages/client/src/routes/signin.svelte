@@ -1,12 +1,14 @@
 <script>
   import * as yup from 'yup/lib'
-
   import { createForm } from '$lib/createForm'
-  import InputControl from '$lib/blocks/auth/input-control.svelte'
-  import Container from '$lib/blocks/auth/container.svelte'
-  import LogoBox from '$lib/blocks/auth/logo-box.svelte'
+  import { Container, LogoBox, InputControl } from '$lib/blocks/auth'
+  import { auth } from '$lib/actions'
 
   const { handleSubmit, errors, state } = createForm({
+    initialValues: {
+      username: '',
+      password: '',
+    },
     schema: yup.object().shape({
       username: yup
         .string()
@@ -18,20 +20,24 @@
         .defined('请输入密码'),
     }),
   })
+
+  function submit(state: { username: string; password: string }) {
+    auth(state).then(console.log).catch(console.log)
+  }
 </script>
 
 <Container>
   <LogoBox />
-  <form on:submit={handleSubmit(console.log)}>
+  <form on:submit={handleSubmit(submit)}>
     <InputControl
       placeholder="用户名"
-      value={$state.username}
+      bind:value={$state.username}
       error={$errors.username}
     />
     <InputControl
       placeholder="密码"
       type="password"
-      value={$state.password}
+      bind:value={$state.password}
       error={$errors.password}
     />
     <button class="submitbutton" type="submit">登录</button>
