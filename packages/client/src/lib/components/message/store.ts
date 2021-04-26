@@ -10,3 +10,7 @@ export function createMessage(props: MessageProps) {
 export function removeMessage(id: string) {
   messages.update(messages => messages.filter(message => message.id !== id))
 }
+
+export function removeAllMessages() {
+  messages.set([])
+}

@@ -1,10 +1,8 @@
 import { nanoid } from 'nanoid'
-import { createMessage } from './store'
+import { createMessage, removeMessage, removeAllMessages } from './store'
 import type { MessageProps } from './type'
-export { default as Message } from './message.svelte'
-export { default as MessageBox } from './messageBox.svelte'
 
-type ShorthandProps = Omit<MessageProps, 'type' | 'content' | 'id'>
+type ShorthandProps = Partial<Omit<MessageProps, 'type' | 'content'>>
 
 function shorthandCreate(
   content: string,
@@ -27,4 +25,13 @@ export const message = {
   error(content: string, options?: ShorthandProps) {
     shorthandCreate(content, 'error', options)
   },
+  remove(id: string) {
+    removeMessage(id)
+  },
+  removeAll() {
+    removeAllMessages()
+  },
 }
+
+export { default as Message } from './message.svelte'
+export { default as MessageBox } from './messageBox.svelte'
