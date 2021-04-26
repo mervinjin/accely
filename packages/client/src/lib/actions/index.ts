@@ -1,5 +1,6 @@
 import { getToken, setToken } from '$lib/utils/token'
 import { GraphQLClient } from 'graphql-request'
+import { message } from '$lib/components/message'
 import { getSdk } from './sdk'
 
 interface GraphqlError {
@@ -47,7 +48,13 @@ function handleError(error: unknown): never {
     response: { errors },
   } = error
 
-  throw errors.length > 0 ? errors[0].message : error
+  const errorMessage = errors?.[0]?.message
+
+  if (errorMessage) {
+    message.error(errorMessage)
+  }
+
+  throw errorMessage ?? error
 }
 
 function query<T, V>(

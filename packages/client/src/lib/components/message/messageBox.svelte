@@ -11,7 +11,7 @@
 
 <style>
   .accely-messagebox {
-    @apply fixed left-2/4 pt-12 transform -translate-x-2/4;
+    @apply fixed left-2/4 pt-10 transform -translate-x-2/4;
     @apply grid gap-5;
   }
 </style>

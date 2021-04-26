@@ -8,7 +8,7 @@
   export let id: string
   export let type: 'success' | 'info' | 'warning' | 'error' = 'info'
   export let content: string
-  export let duration: number = 2000
+  export let duration: number = 3000
 
   $: timeout = setTimeout(() => {
     removeMessage(id)
