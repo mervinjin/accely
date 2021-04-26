@@ -1,5 +1,5 @@
 <script>
-  import * as yup from 'yup/lib'
+  import * as yup from 'yup'
   import { goto } from '$app/navigation'
   import { Container, LogoBox, InputControl } from '$lib/blocks/auth'
   import { createForm } from '$lib/createForm'
