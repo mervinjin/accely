@@ -1,14 +1,19 @@
 import { AuthenticationError, ForbiddenError } from 'apollo-server'
-import { Arg, Args, Ctx, Mutation, Query, Resolver } from 'type-graphql'
+import { Args, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 import { jwt } from '@/utils/jwt'
 import { crypt } from '@/utils/crypt'
-import { UserCreateInput, UserAuthArgs, UserAuthResult } from './user.type'
+import { UserAuthInput, UserAuthResult } from './user.type'
 
 @Resolver()
 export class UserResolver {
-  @Query(() => UserAuthResult)
-  async auth(
-    @Args() input: UserAuthArgs,
+  @Query(() => String)
+  test() {
+    return '1'
+  }
+
+  @Mutation(() => UserAuthResult)
+  async signIn(
+    @Args() input: UserAuthInput,
     @Ctx() context: ContextType
   ): Promise<{ accessToken: string }> {
     const { username, password } = input
@@ -25,11 +30,13 @@ export class UserResolver {
 
   @Mutation(() => UserAuthResult)
   async signUp(
-    @Arg('input') input: UserCreateInput,
+    @Args() input: UserAuthInput,
     @Ctx() { prisma }: ContextType
   ): Promise<UserAuthResult> {
+    const { username, password } = input
+
     const existUser = await prisma.user.findUnique({
-      where: { username: input.username },
+      where: { username: username },
     })
 
     if (existUser) {
@@ -38,9 +45,9 @@ export class UserResolver {
 
     const newUser = await prisma.user.create({
       data: {
-        ...input,
-        password: await crypt.hash(input.password),
-        spaces: { create: { name: input.nickname } },
+        username,
+        password: await crypt.hash(password),
+        spaces: { create: { name: username } },
       },
     })
 

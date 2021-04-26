@@ -1,5 +1,5 @@
 import { MinLength } from 'class-validator'
-import { ArgsType, Field, InputType, ObjectType } from 'type-graphql'
+import { ArgsType, Field, ObjectType } from 'type-graphql'
 import { Account, Space, Transaction } from '@generated/type-graphql'
 
 @ObjectType()
@@ -15,21 +15,13 @@ export class UserExtraInfo {
   transaction?: Transaction[]
 }
 
-@ObjectType()
-export class UserInfo extends UserExtraInfo {
-  @Field(() => String)
-  nickname: string
-  @Field(() => String)
-  username: string
-  @Field(() => String, { nullable: true })
-  password?: string
-}
-
 @ArgsType()
-export class UserAuthArgs {
+export class UserAuthInput {
   @Field(() => String)
+  @MinLength(6)
   username: string
   @Field(() => String)
+  @MinLength(6)
   password: string
 }
 
@@ -37,19 +29,4 @@ export class UserAuthArgs {
 export class UserAuthResult {
   @Field(() => String)
   accessToken: string
-}
-
-@InputType()
-export class UserCreateInput {
-  @Field(() => String)
-  @MinLength(6)
-  username: string
-
-  @Field(() => String)
-  @MinLength(6)
-  password: string
-
-  @Field(() => String)
-  @MinLength(3)
-  nickname: string
 }
