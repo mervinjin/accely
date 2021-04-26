@@ -1,7 +1,8 @@
 <script>
   import * as yup from 'yup/lib'
-  import { createForm } from '$lib/createForm'
+  import { goto } from '$app/navigation'
   import { Container, LogoBox, InputControl } from '$lib/blocks/auth'
+  import { createForm } from '$lib/createForm'
   import { auth } from '$lib/actions'
   import { message } from '$lib/components/message'
 
@@ -26,6 +27,9 @@
     auth(state)
       .then(() => {
         message.success('登录成功!')
+        if (location.pathname !== '/signin') {
+          goto('/')
+        }
       })
       .catch(() => null)
   }
