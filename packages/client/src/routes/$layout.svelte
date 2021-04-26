@@ -1,20 +1,32 @@
+<script context="module">
+  import type { Load } from '@sveltejs/kit'
+
+  const authPages = ['/signin', '/signup']
+
+  export function load({ page }: Parameters<Load>[0]): ReturnType<Load> {
+    return {
+      props: {
+        isAuthPage: authPages.includes(page.path),
+      },
+    }
+  }
+</script>
+
 <script>
-  import { onMount } from 'svelte'
-  import { goto } from '$app/navigation'
-  import {} from '$app/paths'
-  import { getToken } from '$lib/utils/token'
   import { MessageBox } from '$lib/components/message'
+  import { accessToken } from '$lib/stores'
+  import Signin from './signin.svelte'
   import '../app.postcss'
 
-  onMount(() => {
-    console.log(location.pathname)
-    const authRoute = ['/signin', '/signup']
-    if (!authRoute.includes(location.pathname) && !getToken()) {
-      goto('/signin')
-    }
-  })
+  export let isAuthPage: boolean
+
+  $: needAuth = !isAuthPage && $accessToken === null
 </script>
 
 <MessageBox />
 
-<slot />
+{#if needAuth}
+  <Signin />
+{:else}
+  <slot />
+{/if}
