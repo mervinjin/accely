@@ -9,7 +9,6 @@ export async function createUser(data: Partial<Prisma.UserCreateInput> = {}) {
 
   return prisma.user.create({
     data: {
-      nickname: faker.name.findName(),
       username: faker.name.firstName(),
       password: await crypt.hash(password),
       ...restData,
