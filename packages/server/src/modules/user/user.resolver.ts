@@ -2,12 +2,7 @@ import { AuthenticationError, ForbiddenError } from 'apollo-server'
 import { Arg, Args, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 import { jwt } from '@/utils/jwt'
 import { crypt } from '@/utils/crypt'
-import {
-  UserCreateInput,
-  UserAuthArgs,
-  UserAuthResult,
-  UserInfo,
-} from './user.type'
+import { UserCreateInput, UserAuthArgs, UserAuthResult } from './user.type'
 
 @Resolver()
 export class UserResolver {
@@ -28,11 +23,11 @@ export class UserResolver {
     return { accessToken }
   }
 
-  @Mutation(() => UserInfo)
+  @Mutation(() => UserAuthResult)
   async signUp(
     @Arg('input') input: UserCreateInput,
     @Ctx() { prisma }: ContextType
-  ): Promise<UserInfo> {
+  ): Promise<UserAuthResult> {
     const existUser = await prisma.user.findUnique({
       where: { username: input.username },
     })
@@ -41,17 +36,15 @@ export class UserResolver {
       throw new ForbiddenError('用户名已存在')
     }
 
-    const newUser = (await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         ...input,
         password: await crypt.hash(input.password),
         spaces: { create: { name: input.nickname } },
       },
-    })) as UserInfo
+    })
 
-    delete newUser.password
-    delete newUser.spaces
-
-    return newUser
+    const accessToken = jwt.sign(newUser)
+    return { accessToken }
   }
 }

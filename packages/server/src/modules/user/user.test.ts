@@ -45,15 +45,25 @@ describe('User resolver', () => {
         username: faker.name.firstName(),
         password: nanoid(),
       }
-      const user = await userResolver.signUp(input, getContext())
-      const space = await prisma.space.findFirst({
-        where: { users: { some: { username: user.username } } },
+      const { accessToken } = await userResolver.signUp(input, getContext())
+      const user = await prisma.user.findUnique({
+        where: { username: input.username },
       })
 
-      expect(user).toHaveProperty('username', input.username)
+      // 成功创建用户
+      expect(user).toBeTruthy()
+
+      const space = await prisma.space.findFirst({
+        where: { users: { some: { username: user!.username } } },
+      })
+
+      // 返回正确的 token
+      expect(accessToken).toEqual(jwt.sign(user!))
+      // 记录用户名
       expect(user).toHaveProperty('nickname', input.nickname)
-      expect(user).not.toHaveProperty('password')
-      expect(user).not.toHaveProperty('spaces')
+      // crypt
+      expect(user!.password).not.toEqual(input.password)
+      // 创建默认的私有空间
       expect(space).toBeTruthy()
     })
   })
