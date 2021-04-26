@@ -64,6 +64,6 @@
       bind:value={$state.confirmPassword}
       error={$errors.confirmPassword}
     />
-    <button class="submitbutton" type="submit">登录</button>
+    <button class="submitbutton" type="submit">注册</button>
   </form>
 </Container>

@@ -20,7 +20,8 @@
     signIn(state)
       .then(() => {
         message.success('登录成功!')
-        if (location.pathname !== '/signin') {
+
+        if (location.pathname === '/signin') {
           goto('/')
         }
       })
