@@ -3,6 +3,7 @@
   import { createForm } from '$lib/createForm'
   import { Container, LogoBox, InputControl } from '$lib/blocks/auth'
   import { auth } from '$lib/actions'
+  import { message } from '$lib/components/message'
 
   const { handleSubmit, errors, state } = createForm({
     initialValues: {
@@ -22,9 +23,17 @@
   })
 
   function submit(state: { username: string; password: string }) {
-    auth(state).then(console.log).catch(console.log)
+    auth(state)
+      .then(() => {
+        message.success('登录成功!')
+      })
+      .catch(() => null)
   }
 </script>
+
+<svelte:head>
+  <title>登录</title>
+</svelte:head>
 
 <Container>
   <LogoBox />
