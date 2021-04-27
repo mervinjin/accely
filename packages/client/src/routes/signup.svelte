@@ -67,3 +67,5 @@
     <button class="submitbutton" type="submit">注册</button>
   </form>
 </Container>
+
+<slot />

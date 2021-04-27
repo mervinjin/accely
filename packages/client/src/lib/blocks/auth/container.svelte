@@ -6,6 +6,7 @@
   .container {
     @apply p-10 pt-20 w-full h-full;
     @apply grid gap-16 content-start items-center;
+    @apply text-base;
   }
 
   .container :global(form) {

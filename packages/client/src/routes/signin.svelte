@@ -27,6 +27,10 @@
       })
       .catch(() => null)
   }
+
+  function toSignup() {
+    goto('/signup')
+  }
 </script>
 
 <svelte:head>
@@ -47,6 +51,16 @@
       bind:value={$state.password}
       error={$errors.password}
     />
+
     <button class="submitbutton" type="submit">登录</button>
+    <span class="signup" role="link" on:click={toSignup}>创建账号</span>
   </form>
 </Container>
+
+<slot />
+
+<style>
+  .signup {
+    @apply ml-auto text-blue-500;
+  }
+</style>
