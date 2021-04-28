@@ -41,12 +41,12 @@
   <LogoBox />
   <form on:submit={handleSubmit(submit)}>
     <InputControl
-      placeholder="用户名"
+      placeholder="请输入用户名"
       bind:value={$state.username}
       error={$errors.username}
     />
     <InputControl
-      placeholder="密码"
+      placeholder="请输入密码"
       type="password"
       bind:value={$state.password}
       error={$errors.password}

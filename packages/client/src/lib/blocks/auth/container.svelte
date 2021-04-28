@@ -14,6 +14,6 @@
   }
 
   .container :global(form > .submitbutton) {
-    @apply mt-16 p-4 bg-black text-white rounded;
+    @apply mt-16 p-4 bg-primary-500 text-white rounded-xl;
   }
 </style>
