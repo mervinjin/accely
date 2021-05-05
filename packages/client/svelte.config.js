@@ -1,9 +1,12 @@
-const sveltePreprocess = require('svelte-preprocess')
-const vercel = require('@sveltejs/adapter-vercel')
-const pkg = require('./package.json')
+import sveltePreprocess from 'svelte-preprocess'
+import vercel from '@sveltejs/adapter-vercel'
+import nested from 'postcss-nested'
+import fs from 'fs'
+
+const pkg = JSON.parse(fs.readFileSync('./package.json'))
 
 /** @type {import('@sveltejs/kit').Config} */
-module.exports = {
+export default {
   preprocess: [
     sveltePreprocess({
       defaults: {
@@ -11,7 +14,7 @@ module.exports = {
         style: 'postcss',
       },
       postcss: {
-        plugins: [require('postcss-nested')],
+        plugins: [nested],
       },
     }),
   ],
